@@ -4,7 +4,7 @@ import Home from '../page/home';
 import Cate from '../page/cate';
 import Cart from '../page/cart';
 import My from '../page/my';
-
+import SearchBox from '../page/search'
 
 const routes = createHashRouter([
     {
@@ -36,6 +36,10 @@ const routes = createHashRouter([
                 element:<My/>
             }
         ]
+    },
+    {
+        path:'/search',
+        element:<SearchBox/>
     }
 ])
 
