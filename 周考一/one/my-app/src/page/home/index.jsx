@@ -3,9 +3,9 @@ import styles from "./index.module.css";
 import { SearchBar } from "antd-mobile";
 import { Sticky } from "react-vant";
 import { useNavigate } from "react-router-dom";
-import axios from 'axios';
-import { InfiniteScroll} from 'antd-mobile';
-import { sleep } from 'antd-mobile/es/utils/sleep';
+import axios from "axios";
+import { InfiniteScroll, Button } from "antd-mobile";
+import { sleep } from "antd-mobile/es/utils/sleep";
 
 export default function Home() {
   const navigate = useNavigate();
@@ -13,35 +13,47 @@ export default function Home() {
   const [activeIndex, setActive] = useState(0);
   const [data, setData] = useState([]);
   const [hasMore, setHasMore] = useState(true);
-  const [page,setPage] = useState(1);
-  const [pageSize,setPageSize] = useState(6);
-  const dataRef = useRef();
+  const [page, setPage] = useState(1);
+  const [pageSize, setPageSize] = useState(6);
+  const dataRef = useRef(true);
   async function loadMore() {
-    const append = await axios.get('/api/shop/shopList',
-      {
-        params:{
-          page,
-          pageSize
-        }
-      }
-    )
+    const append = await axios.get("/api/shop/shopList", {
+      params: {
+        page,
+        pageSize,
+      },
+    });
     const newData = append.data.data;
-    if(newData && newData.length > 0){
-      setData(val => [...val, ...newData]);
-      setPage(prev => prev + 1);
-      setHasMore(newData.length === pageSize)
-    }else{
-      setHasMore(false)
+    if (newData && newData.length > 0) {
+      await sleep(3000);
+      const uniqueShopData = newData.filter((newItem) => {
+        return !data.some((item) => item._id === newItem._id);
+      });
+      setData((val) => [...val, ...uniqueShopData]);
+      setPage((prev) => prev + 1);
+      setHasMore(newData.length === pageSize);
+    } else {
+      setHasMore(false);
     }
   }
 
-  console.log(data);
-  
+
   useEffect(()=>{
-    if(!dataRef.current){
-      loadMore();
-    }
+   if(!dataRef.current){
+    loadMore();
+    dataRef.current = false;
+   }
+   setPageSize(4);
   },[])
+
+  const handelCate = (index) => {
+    setActive(index);
+  }
+
+  const getFilterShop = () => {
+    return data.filter((item) => item.cate === cateList[activeIndex]);
+  }
+
   return (
     <div>
       <Sticky>
@@ -56,16 +68,33 @@ export default function Home() {
                 <li
                   key={index}
                   className={activeIndex === index ? styles.active : null}
-                  onClick={() => setActive(index)}
+                  onClick={() => handelCate(index)}
                 >
                   {item}
                 </li>
               );
             })}
           </ul>
+          <div className={styles.PriceBox}>
+            <Button color="primary" fill="outline">
+              价格
+            </Button>
+          </div>
         </div>
       </Sticky>
-      <InfiniteScroll loadMore={loadMore} hasMore={hasMore} />
+      <div className={styles.ShopListBox}>
+        {getFilterShop().map((item) => {
+          return (
+            <div key={item._id} className={styles.ShopItem}>
+              {item.shopName}
+            </div>
+          );
+        })}
+        <div className={styles.InfiniteBox}>
+        <InfiniteScroll loadMore={loadMore} hasMore={hasMore} />
+      </div>
+      </div>
+      
     </div>
   );
 }

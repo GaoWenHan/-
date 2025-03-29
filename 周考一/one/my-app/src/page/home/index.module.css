@@ -20,8 +20,41 @@
     }
 }
 
+.PriceBox{
+    width: 100%;
+    height: auto;
+    Button{
+        margin-left: 10px;
+        margin-top: 10px;
+    }
+}
+
+.ShopListBox{
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    margin-top: 10px;
+}
+
+.ShopItem{
+    width: 160px;
+    height: 220px;
+    border: 1px solid #ddd;
+    margin-bottom: 15px;
+}
+
+.InfiniteBox{
+    width: 100%;
+    height: auto;
+    margin-bottom: 35px;
+}
+
+
 .active{
     color: black !important;
     font-weight: bold;
     border-bottom: 1px solid black;
 }
+
