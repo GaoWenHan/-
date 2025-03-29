@@ -1,0 +1,10 @@
+.LayoutsBox{
+    width: 100%;
+    height: 100vh;
+}
+.TabBarBox{
+    width: 100%;
+    height: auto;
+    position: fixed;
+    bottom: 0;
+}
