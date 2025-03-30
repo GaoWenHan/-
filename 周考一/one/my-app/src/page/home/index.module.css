@@ -38,39 +38,7 @@
     margin-top: 10px;
 }
 
-.ShopItem{
-    width: 160px;
-    height: 220px;
-    border: 1px solid #ddd;
-    margin-bottom: 15px;
-}
 
-.ImgBox{
-    width: 100%;
-    height: 160px;
-    img{
-        width: 100%;
-        height: 100%;
-    }
-}
-
-.ShopNameBox{
-    width: 100%;
-    height: 25px;
-    line-height: 25px;
-    text-indent: 5px;
-}
-
-.shopItemBottom{
-    width: 100%;
-    height: 35px;
-    display: flex;
-    justify-content: space-between;
-    p{
-        height: 35px;
-        line-height: 35px;
-    }
-}
 
 .InfiniteBox{
     width: 100%;
@@ -85,8 +53,5 @@
     border-bottom: 1px solid black;
 }
 
-.CartBox{
-    width: 100%;
-    height: auto;
-}
+
 

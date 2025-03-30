@@ -1,0 +1,24 @@
+.SearchTop{
+    width: 100%;
+    height: 40px;
+}
+.HistoryBox{
+    width: 100%;
+    height: auto;
+    margin-top: 15px;
+}
+.HistoryList{
+    width: 100%;
+    height: auto;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+    li{
+        display: block;
+        width: auto;
+        height: auto;
+        padding: 0px 15px;
+        text-align: center;
+    }
+}

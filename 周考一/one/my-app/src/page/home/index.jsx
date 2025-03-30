@@ -5,7 +5,8 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { InfiniteScroll, Button, ActionSheet, SearchBar } from "antd-mobile";
 import { sleep } from "antd-mobile/es/utils/sleep";
-import { TruckOutline } from "antd-mobile-icons";
+import { BackTop } from "@nutui/nutui-react";
+import Item from '../../components/item';
 
 export default function Home() {
   const navigate = useNavigate();
@@ -14,9 +15,8 @@ export default function Home() {
   const [data, setData] = useState([]);
   const [hasMore, setHasMore] = useState(true);
   const [page, setPage] = useState(1);
-  const [pageSize, setPageSize] = useState(20);
+  const [pageSize, setPageSize] = useState(10);
   const [sortPrice, setSortPrice] = useState(0);
-  const [visible, setVisible] = useState(false);
   const dataRef = useRef(true);
   async function loadMore() {
     const append = await axios.get("/api/shop/shopList", {
@@ -31,8 +31,8 @@ export default function Home() {
       const uniqueNewData = newData.filter((newItem) => {
         return !data.some((Item) => Item._id === newItem._id);
       });
-      setData(prev => [...prev, ...uniqueNewData]);
-      setPage(prev => prev + 1);
+      setData((prev) => [...prev, ...uniqueNewData]);
+      setPage((prev) => prev + 1);
       setHasMore(newData.length === pageSize);
     } else {
       setHasMore(false);
@@ -40,10 +40,11 @@ export default function Home() {
   }
 
   useEffect(() => {
-   if(!dataRef.current){
-    loadMore();
-    dataRef.current = false;
-   }
+    if (!dataRef.current) {
+      loadMore();
+      dataRef.current = false;
+    }
+    setPageSize(4);
   }, [activeIndex]);
 
   const handelCate = (index) => {
@@ -51,7 +52,9 @@ export default function Home() {
   };
 
   const getFilterShop = () => {
-    return activeIndex < 0 ? data : data.filter((item) => item.cate === cateList[activeIndex]);
+    return activeIndex < 0
+      ? data
+      : data.filter((item) => item.cate === cateList[activeIndex]);
   };
 
   const handlClickSort = () => {
@@ -111,36 +114,19 @@ export default function Home() {
           </div>
         </div>
       </Sticky>
-      <div className={styles.CartBox}>
-        <ActionSheet
-          visible={visible}
-          actions={[]}
-          onClose={() => setVisible(false)}
-        />
-      </div>
+      
       <div className={styles.ShopListBox}>
         {getFilterShop().map((item) => {
           return (
-            <div key={item._id} className={styles.ShopItem}>
-              <div className={styles.ImgBox}>
-                <img src={item.imgUrl} />
-              </div>
-              <div className={styles.ShopNameBox}>{item.shopName}</div>
-              <div className={styles.shopItemBottom}>
-                <p>¥{item.price}</p>
-                <p>
-                  <TruckOutline
-                    style={{ fontSize: "20px" }}
-                    onClick={() => handleAddCartBox(item)}
-                  />
-                </p>
-              </div>
-            </div>
+            <Item key={item._id} Data={item} />
           );
         })}
         <div className={styles.InfiniteBox}>
-        <InfiniteScroll loadMore={loadMore} hasMore={hasMore} />
-      </div>
+          {
+            data.length > 15 ? <BackTop target="target" /> : null
+          }
+          <InfiniteScroll loadMore={loadMore} hasMore={hasMore} />
+        </div>
       </div>
     </div>
   );
