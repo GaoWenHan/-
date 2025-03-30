@@ -8,15 +8,16 @@ import { CustomException } from '../../common/exceptions/custom-exception'
 @Injectable()
 export class ShopService {
   constructor(
-    @InjectModel('Shop') private shopModel:Model<Shop>
-  ){}
-  async getShopList(page:number,pageSize:number){
+    @InjectModel('Shop') private shopModel: Model<Shop>
+  ) { }
+  async getShopList(page: number, pageSize: number) {
     try {
+      console.log(page,pageSize);
       const skip = (page - 1) * pageSize;
       const shopList = await this.shopModel.find().skip(skip).limit(pageSize);
       return shopList;
     } catch (error) {
-      throw new CustomException('获取数据失败',500)
+      throw new CustomException('获取数据失败', 500)
     }
   }
 }

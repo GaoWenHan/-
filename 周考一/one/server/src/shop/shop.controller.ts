@@ -13,7 +13,7 @@ export class ShopController {
   @Get('shopList')
   async SendShopList(@Query() query: ShopListQueryDto) {
     try {
-      const { page, pageSize } = query;
+      const { page, pageSize} = query;
       const userList = await this.shopService.getShopList(page, pageSize);
       return new CommonResponseDto(200, '获取成功', userList)
     } catch (error) {
