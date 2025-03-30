@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { SearchBar, Input } from "antd-mobile";
+import { Input } from "antd-mobile";
 import styles from "./index.module.css";
 
 export default function SearchBox() {
