@@ -10,15 +10,11 @@ export class ShopService {
   constructor(
     @InjectModel('Shop') private shopModel: Model<Shop>
   ) { }
-  async getShopList(page: number, pageSize: number, cate: string) {
+  async getShopList(page: number, pageSize: number) {
     try {
-      console.log(page,pageSize,cate);
+      console.log(page,pageSize);
       const skip = (page - 1) * pageSize;
-      let query = {};
-      if (cate) {
-        query = { cate };
-      }
-      const shopList = await this.shopModel.find(query).skip(skip).limit(pageSize);
+      const shopList = await this.shopModel.find().skip(skip).limit(pageSize);
       return shopList;
     } catch (error) {
       throw new CustomException('获取数据失败', 500)

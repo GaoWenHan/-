@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { InfiniteScroll, Button } from "antd-mobile";
 import { sleep } from "antd-mobile/es/utils/sleep";
+import { TruckOutline } from "antd-mobile-icons";
 
 export default function Home() {
   const navigate = useNavigate();
@@ -15,6 +16,7 @@ export default function Home() {
   const [hasMore, setHasMore] = useState(true);
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(6);
+  const [sortPrice, setSortPrice] = useState(0);
   const dataRef = useRef(true);
   async function loadMore() {
     const append = await axios.get("/api/shop/shopList", {
@@ -37,22 +39,45 @@ export default function Home() {
     }
   }
 
-
-  useEffect(()=>{
-   if(!dataRef.current){
-    loadMore();
-    dataRef.current = false;
-   }
-   setPageSize(4);
-  },[])
+  useEffect(() => {
+    if (!dataRef.current) {
+      loadMore();
+      dataRef.current = false;
+    }
+  }, []);
 
   const handelCate = (index) => {
     setActive(index);
-  }
+  };
 
   const getFilterShop = () => {
     return data.filter((item) => item.cate === cateList[activeIndex]);
-  }
+  };
+
+  const handlClickSort = () => {
+    switch (sortPrice) {
+      case 0:
+        setSortPrice(1);
+        return data;
+      case 1:
+        setSortPrice(2);
+        const newDataOne = data.sort((a, b) => {
+          return a.price - b.price;
+        });
+        setData(newDataOne);
+        break;
+      case 2:
+        setSortPrice(0);
+        const newDataTwo = data.sort((a, b) => {
+          return b.price - a.price;
+        });
+        setData(newDataTwo);
+        break;
+      default:
+        setSortPrice(0);
+        return data;
+    }
+  };
 
   return (
     <div>
@@ -76,7 +101,7 @@ export default function Home() {
             })}
           </ul>
           <div className={styles.PriceBox}>
-            <Button color="primary" fill="outline">
+            <Button color="primary" fill="outline" onClick={handlClickSort}>
               价格
             </Button>
           </div>
@@ -86,15 +111,23 @@ export default function Home() {
         {getFilterShop().map((item) => {
           return (
             <div key={item._id} className={styles.ShopItem}>
-              {item.shopName}
+              <div className={styles.ImgBox}>
+                <img src={item.imgUrl} />
+              </div>
+              <div className={styles.ShopNameBox}>{item.shopName}</div>
+              <div className={styles.shopItemBottom}>
+                <p>¥{item.price}</p>
+                <p>
+                  <TruckOutline style={{ fontSize: "20px" }} />
+                </p>
+              </div>
             </div>
           );
         })}
         <div className={styles.InfiniteBox}>
-        <InfiniteScroll loadMore={loadMore} hasMore={hasMore} />
+          <InfiniteScroll loadMore={loadMore} hasMore={hasMore} />
+        </div>
       </div>
-      </div>
-      
     </div>
   );
 }
