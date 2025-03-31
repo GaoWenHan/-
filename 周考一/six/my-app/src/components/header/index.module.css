@@ -1,0 +1,25 @@
+.HeaderTop{
+    width: 100%;
+    height: auto;
+    p{
+        display: block;
+        width: 100%;
+    }
+    ul{
+        list-style: none;
+        width: 100%;
+        height:auto;
+        display: flex;
+        justify-content: space-between;
+        border-top: 1px solid #ddd;
+        border-bottom: 1px solid #ddd;
+        li{
+            display: block;
+            width: auto;
+            padding: 0px 15px;
+            height: 25px;
+            text-align: center;
+            line-height: 25px;
+        }
+    }
+}
