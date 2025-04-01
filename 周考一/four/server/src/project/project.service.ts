@@ -3,6 +3,7 @@ import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { Project } from '../Database/schemas/project.schema';
 import { Colors } from '../Database/schemas/colors.schema';
+import { CreateProjectDto } from './dto/create-project.dto';
 
 @Injectable()
 export class ProjectService {
@@ -14,6 +15,14 @@ export class ProjectService {
   try {
     let ProjectData = await this.projectModel.find()
     return {ProjectData}
+  } catch (error) {
+    return error;
+  }
+ }
+ async createProject(createProjectDto:CreateProjectDto){
+  try {
+    const newProject = new this.projectModel(createProjectDto);
+    return await newProject.save();
   } catch (error) {
     return error;
   }
