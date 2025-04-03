@@ -9,11 +9,11 @@ const headerStyle = {
   backgroundColor: '#4096ff',
 };
 const contentStyle = {
-  backgroundColor: 'white',
+  backgroundColor: '#eee',
 };
 const siderStyle = {
   color: '#fff',
-  backgroundColor: '#2e3036',
+  backgroundColor: '#ddd',
 };
 
 const layoutStyle = {

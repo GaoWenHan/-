@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   AppstoreOutlined,
   MailOutlined,
@@ -7,9 +7,13 @@ import {
 } from '@ant-design/icons';
 import { Menu } from 'antd';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import styles from '@/components/menus/index.module.sass'
 
 export default function Menus() {
   const navigate = useNavigate();
+  const [projectList,setProjectList] = useState([]);
+
   const items = [
     {
       key: '/addProject',
@@ -25,6 +29,7 @@ export default function Menus() {
       key: 'sub3',
       label: '项目',
       icon: <SettingOutlined />,
+      children:projectList
     },
     {
       key: 'sub4',
@@ -37,20 +42,47 @@ export default function Menus() {
       icon: <SettingOutlined />,
     },
   ];
+
+  const getProjectList = async () => {
+    try {
+      let response = await axios.get('/api/project/List')
+      const { data } = response.data
+      const items = data.ProjectData.map(project=>({
+        key:project._id,
+        label:project.projectName
+      }))
+      setProjectList(items);
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+
+  useEffect(()=>{
+    getProjectList()
+  },[])
   
   const onClick = (e) => {
-    navigate(e.key)
+    if(e.key === 'sub3'){
+      return;
+    }
+    if(e.item.children){
+      return
+    }
+    let path = e.key;
+    if(items[2].children.some(item => item.key === e.key)){
+      path = `/layouts/detail/${e.key}`;
+    }
+    navigate(path)
   };
   return (
     <Menu
       onClick={onClick}
       style={{
         width: 180,
-        backgroundColor: '#2e3036',
-        color: 'white',
+        backgroundColor: '#eee',
       }}
-      defaultSelectedKeys={['1']}
-      defaultOpenKeys={['sub1']}
+      defaultSelectedKeys={['sub3']}
+      defaultOpenKeys={['sub3']}
       mode="inline"
       items={items}
     />

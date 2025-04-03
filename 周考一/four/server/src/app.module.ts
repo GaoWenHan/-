@@ -12,8 +12,6 @@ import { ColorsModel } from './Database/models/colors.model';
     ConfigModule.forRoot({
       isGlobal:true
     }),
-    ColorsModel,
-    ProjectModel,
     ProjectModule,
     DatabaseModule
   ],
