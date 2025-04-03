@@ -8,7 +8,6 @@ import { Item } from '../Database/schemas/item.schema';
 import { CreateProjectDto } from './dto/create-project.dto';
 import { CreateListDto } from './dto/create-list.dto';
 import { CreateItemDto } from './dto/create-item.dto';
-import * as mongoose from 'mongoose'
 
 @Injectable()
 export class ProjectService {
@@ -56,7 +55,7 @@ export class ProjectService {
       return error;
     }
   }
-  
+
 
   async createList(createListDto: CreateListDto) {
     try {
@@ -73,6 +72,14 @@ export class ProjectService {
       return await newItem.save();
     } catch (error) {
       return error;
+    }
+  }
+
+  async updateChangeStatus(){
+    try {
+
+    }catch (error) {
+
     }
   }
 }

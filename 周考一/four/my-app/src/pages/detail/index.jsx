@@ -114,12 +114,14 @@ export default function Detail() {
     return filteredData.length;
   };
 
-  const handleCheckboxChange = (itemId, newStatus) => {
-    setItemData((prevItemData) =>
-      prevItemData.map((item) =>
-        item._id === itemId ? { ...item, status: newStatus } : item
-      )
-    );
+  const handleCheckboxChange = async (itemId, newStatus) => {
+    // setItemData((prevItemData) =>
+    //   prevItemData.map((item) =>
+    //     item._id === itemId ? { ...item, status: newStatus } : item
+    //   )
+    // );
+    let response = await  axios.post('/api/project/ItemInputStatus',{itemId,newStatus})
+
   };
 
   return (
@@ -257,4 +259,4 @@ export default function Detail() {
       </div>
     </div>
   );
-}    
+}

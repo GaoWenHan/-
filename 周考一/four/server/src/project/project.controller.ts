@@ -38,4 +38,10 @@ export class ProjectController {
     await this.projectService.createItem(createItemDto);
     return new CommonResponseDto(200,'添加成功')
   }
+
+  @Post('updateStatus')
+  async  UpdateInputStatus(){
+
+  }
+
 }
