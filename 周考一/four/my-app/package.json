@@ -1,0 +1,38 @@
+{
+  "name": "my-app",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "lint": "eslint .",
+    "preview": "vite preview",
+    "start": "cross-env NODE_ENV=development concurrently \"npm run dev\" \"wait-on http://localhost:5173 && electron ./electron/main.cjs\""
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@ant-design/icons": "^6.0.0",
+    "@eslint/js": "^9.21.0",
+    "@types/react": "^19.0.10",
+    "@types/react-dom": "^19.0.4",
+    "@vitejs/plugin-react": "^4.3.4",
+    "antd": "^5.24.5",
+    "axios": "^1.8.4",
+    "concurrently": "^9.1.2",
+    "cross-env": "^7.0.3",
+    "dotenv": "^16.4.7",
+    "electron": "^35.1.2",
+    "eslint": "^9.21.0",
+    "eslint-plugin-react-hooks": "^5.1.0",
+    "eslint-plugin-react-refresh": "^0.4.19",
+    "globals": "^15.15.0",
+    "react-router-dom": "^6.30.0",
+    "sass": "^1.86.1",
+    "vite": "^6.2.0",
+    "wait-on": "^8.0.3"
+  }
+}
