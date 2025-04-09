@@ -7,7 +7,6 @@ import { AppstoreOutlined, MenuOutlined } from '@ant-design/icons';
 
 export default function Home() {
   const alphabet = Array.from(Array(26), (_, i) => String.fromCharCode(i + 65));
-
   const [alphActive, setAlphActive] = useState('热门');
   const [vehicleActive, setVehicleActive] = useState(0);
   const [brands, setBrands] = useState([]);
@@ -15,6 +14,22 @@ export default function Home() {
   const [selectBrandId, setSelectBrandId] = useState('');
   const [carList, setCarList] = useState([]);
   const [layoutStauts, setLayoutStatus] = useState(false);
+  const [filterHistory,setFilterHistory] = useState(()=>{
+    const storedHistory = localStorage.getItem('filterHistory')
+    if(storedHistory){
+        const {price,brands:storedBrands,serise} = JSON.parse(storedHistory);
+        return {
+            price:price || null,
+            brands:storedBrands || [],
+            serise:serise || []
+        };
+    }
+    return {
+        price:null,
+        brands:[],
+        serise:[]
+    }
+  })
 
   const getBrands = async () => {
     try {
@@ -97,6 +112,69 @@ export default function Home() {
     });
   };
 
+  const handlePriceFilter = (price) => {
+    setFilterHistory((prev)=>{
+        const newHistory = {
+            ...prev,
+            price:price
+        }
+        localStorage.setItem('filterHistory',JSON.stringify(newHistory));
+        return newHistory;
+    });
+    getCarList(price);
+  }
+
+  const handleBrandFilter = (brandName) => {
+    setFilterHistory((prev)=>{
+        let newBrands = [...prev.brands];
+        if(!newBrands.includes(brandName)){
+            newBrands.push(brandName);
+        }
+        const newHistory = {
+            ...prev,
+            brands:newBrands
+        }
+        localStorage.setItem('filterHistory',JSON.stringify(newHistory));
+        return newHistory;
+    })
+  }
+
+  const handleSeriseFilter = (seriesName) => {
+    setFilterHistory((prev)=>{
+        let newSeries = [...prev.serise];
+        if(!newSeries.includes(seriesName)){
+            newSeries.push(seriesName);
+        }
+        const newHistory = {
+            ...prev,
+            serise:newSeries
+        }
+        localStorage.setItem('filterHistory',JSON.stringify(newHistory));
+        return newHistory;
+    })
+  }
+
+  const handleDeleteFilter = (type,value) => {
+    setFilterHistory((prev)=>{
+        let newHistory = {...prev};
+        switch(type){
+            case 'price':
+                newHistory.price = null;
+                break;
+            case 'brand':
+                newHistory.brands = prev.brands.filter(brand => brand !== value);
+                break;
+            case 'serise':
+                newHistory.serise = prev.serise.filter(serise => serise !== value);
+                break;
+            default:
+                break;
+        }
+        localStorage.setItem('filterHistory',JSON.stringify(newHistory));
+        return newHistory;
+    })
+  }
+
   const getRandomCars = (list, count) => {
     const shuffled = [...list].sort(() => 0.5 - Math.random());
     return shuffled.slice(0, count);
@@ -144,6 +222,7 @@ export default function Home() {
                 setSelectBrandId(item._id);
                 setVehicleActive(0);
                 getVehicle();
+                handleBrandFilter(item.name)
               }}
             >
               {item.name}
@@ -177,6 +256,7 @@ export default function Home() {
                     key={index}
                     onClick={() => {
                       setVehicleActive(index + 1);
+                      handleSeriseFilter(item.name)
                     }}
                   >
                     {item.name.slice(0, 15)}
@@ -206,8 +286,8 @@ export default function Home() {
           </div>
         ) : null}
       </div>
-      <PriceFilter CarData={getCarList} />
-      <CarFilter />
+      <PriceFilter CarData={handlePriceFilter} />
+      <CarFilter filterHistory={filterHistory} onDelete={handleDeleteFilter} />
       <div className={styles.LayoutSelect}>
         <div className={layoutStauts === false ? styles.LayoutActive : null}>
           <AppstoreOutlined
