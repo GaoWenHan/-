@@ -48,7 +48,7 @@
     display: flex;
     justify-content: flex-start;
     flex-wrap: wrap;
-    padding: 20px 20px 120px 20px;
+    padding: 20px 20px 110px 20px;
 }
 
 .brandItem{
@@ -66,6 +66,7 @@
     justify-content: left;
     flex-wrap: wrap;
     border-bottom: 1px solid #ddd;
+    margin-top: 5px;
 }
 
 .vehicleItem{
@@ -86,17 +87,91 @@
     border-radius: 8px;
 }
 
-.filterPrice{
+.LayoutSelect{
     width: 100%;
-    height: 50px;
+    height: 40px;
+    border-bottom: 1px solid #ddd;
+    margin-top: 5px;
     display: flex;
     justify-content: left;
-    border-bottom: 1px solid #ddd;
+    div{
+        width: 40px;
+        height: 40px;
+        text-align: center;
+        line-height: 40px;
+        margin-right: 20px;
+    }
 }
 
-.priceItem{
-    padding: 0px 10px;
-    height: 50px;
+.LayoutActive{
+    width: 40px;
+    height: 40px;
+    color: white;
     text-align: center;
-    line-height: 50px;
+    line-height: 40px;
+    margin-right: 20px;
+    background-color: rgb(255,85,46);
+}
+
+
+.CarBox{
+    width: 100%;
+    height: 290px;
+    border-bottom: 2px solid #ddd;
+    overflow-x: scroll;
+}
+
+.CarItem{
+    width: 100%;
+    height: 180px;
+    border: 1px solid #ddd;
+    display: flex;
+    justify-content: left;
+    margin-bottom: 20px;
+}
+
+.CarImgBox{
+    width: 300px;
+    height: 180px;
+    margin-right: 25px;
+    img{
+        width: 100%;
+        height: 100%;
+    }
+}
+
+
+.carDetail{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+
+.CarBoxTwo{
+    width: 100%;
+    height: 290px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    overflow-y: scroll;
+}
+
+.CarItemTwo{
+    width: 470px;
+    height: 180px;
+    border: 1px solid #ddd;
+    display: flex;
+    // justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.CarImgBoxTwo{
+    width: 200px;
+    height: 180px;
+    margin-right: 25px;
+    img{
+        width: 100%;
+        height: 100%;
+    }
 }

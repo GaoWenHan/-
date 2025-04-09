@@ -3,6 +3,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { BrandModule } from './models/brand.model';
 import { VehicleModule } from './models/vehicle.model';
+import { CarModule } from './models/car.model';
 
 
 @Module({
@@ -18,7 +19,8 @@ import { VehicleModule } from './models/vehicle.model';
             inject: [ConfigService]
         }),
         BrandModule,
-        VehicleModule
+        VehicleModule,
+        CarModule
     ],
     providers: [],
     exports: [MongooseModule]
