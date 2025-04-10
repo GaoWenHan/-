@@ -19,7 +19,7 @@ export class User extends Document {
         required:[true,'密码不能为空'],
         select:false, // 默认不反悔密码字段
         minlength:[6,'密码至少六位'],
-        set:(val:string) => bcrypt.hashSync(val,10), // 存储时自动加密
+        // set:(val:string) => bcrypt.hashSync(val,10), // 存储时自动加密
     })
     password:string
 }

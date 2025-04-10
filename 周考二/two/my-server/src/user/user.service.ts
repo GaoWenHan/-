@@ -10,14 +10,14 @@ import * as bcrypt from 'bcryptjs';
 @Injectable()
 export class UserService {
   constructor(
-    @InjectModel(User.name) private userModule:Model<User>,
-    private readonly jwtService:JwtService
-  ){
+    @InjectModel(User.name) private userModel: Model<User>,
+    private readonly jwtService: JwtService
+  ) {
   }
 
   // 根据校验成功的登陆信息生成token
-  private generateToken(user){
-    const payload = {sub:user._id,username:user.username};
+  private generateToken(user) {
+    const payload = { sub: user._id, username: user.username };
     const token = this.jwtService.sign(payload);
     return {
       token
@@ -25,33 +25,32 @@ export class UserService {
   }
 
   // 对登录接口信息进行解析查询
-  async ValidateUser(username:string,password:string){
-    const user = await this.userModule.findOne({username})
-    if(user && (await bcrypt.compare(password,user.password))){
-      return user;
+  async ValidateUser(username: string, password: string) {
+    const user = await this.userModel.findOne({ username }).select('password');
+    if (user && user.password === password) {
+        return user;
     }
     return null;
   }
 
   // 根据解析到的信息进行验证，生成token
-  async login(createUserDto:CreateUserDto){
-    const user = this.ValidateUser(createUserDto.username,createUserDto.password);
-    if(!user){
+  async login(createUserDto: CreateUserDto) {
+    const user = await this.ValidateUser(createUserDto.username, createUserDto.password);
+    if (!user) {
       return new UnauthorizedException('Invalid credentials');
     }
     return this.generateToken(user);
   }
 
-  async register(createUserDto:CreateUserDto){
-    const {username,password} = createUserDto;
-    const existingUser = await this.userModule.findOne({username});
-    if(existingUser){
+  async register(createUserDto: CreateUserDto) {
+    const { username, password } = createUserDto;
+    const existingUser = await this.userModel.findOne({ username });
+    if (existingUser) {
       throw new ConflictException('Username already exists');
     }
-    const hashedPassword = await bcrypt.hash(password,10);
-    const newUser = new this.userModule({
+    const newUser = new this.userModel({
       username,
-      password:hashedPassword
+      password
     });
     const savedUser = await newUser.save();
     return this.generateToken(savedUser);
