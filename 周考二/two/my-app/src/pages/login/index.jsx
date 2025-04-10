@@ -24,6 +24,7 @@ export default function Login() {
         let response = await axios.post('/api/user/login',userForm)
         if(response.data.code == 200){
             navigate('/home')
+            alert(response.data.message)
         }
     } catch (error) {
         return error;
@@ -41,7 +42,7 @@ export default function Login() {
               value={userForm.username}
               onChange={(event) => changeUserForm(event)}
             />
-            <SendVerificationCode />
+            <SendVerificationCode data={userForm.username} />
           </li>
           <li>
             <input
