@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigService,ConfigModule } from '@nestjs/config';
 import { UserModule } from '../database/models/user.module';
+import { ProfileModule } from '../database/models/profile.module';
 
 
 @Module({
@@ -16,7 +17,8 @@ import { UserModule } from '../database/models/user.module';
             },
             inject:[ConfigService]
         }),
-        UserModule
+        UserModule,
+        ProfileModule
     ],
     exports:[MongooseModule]
 })
