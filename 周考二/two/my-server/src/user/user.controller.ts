@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -23,6 +23,52 @@ export class UserController {
       return new CommonResponseDto(200, '注册成功')
     } catch (error) {
       return error
+    }
+  }
+  @Get('profile')
+  async GetProfile() {
+    try {
+      let result = await this.userService.getProfileText();
+      return new CommonResponseDto(200, '获取成功', result)
+    } catch (error) {
+      return error;
+    }
+  }
+  @Post('upName')
+  async UpName(
+      @Query('_id') _id:string,
+      @Query('name') name:string
+    ) {
+    try {
+      console.log(_id,name);
+      await this.userService.updateName(_id,name);
+      return new CommonResponseDto(200, '修改成功')
+    } catch (error) {
+      return error;
+    }
+  }
+  @Post('upSex')
+  async UpSex(
+    @Query('_id') _id:string,
+    @Query('sex') sex:string
+  ){
+    try {
+      await this.userService.updateSex(_id,sex);
+      return new CommonResponseDto(200, '修改成功')
+    } catch (error) {
+      return error;
+    }
+  }
+  @Post('uBirthday')
+  async UpBirthday(
+    @Query('_id') _id:string,
+    @Query('birthDate') birthDate:string
+  ){
+    try {
+      await this.userService.updateBirthday(_id,birthDate);
+      return new CommonResponseDto(200, '修改成功')
+    } catch (error) {
+      return error;
     }
   }
 }
