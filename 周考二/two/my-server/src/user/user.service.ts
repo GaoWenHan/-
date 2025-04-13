@@ -6,11 +6,13 @@ import { Model } from 'mongoose';
 import { User } from '../database/schemas/user.schema';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcryptjs';
+import { Profile } from '../database/schemas/profile.schema';
 
 @Injectable()
 export class UserService {
   constructor(
     @InjectModel(User.name) private userModel: Model<User>,
+    @InjectModel(Profile.name) private ProfileModel:Model<Profile>,
     private readonly jwtService: JwtService
   ) {
   }
@@ -54,5 +56,53 @@ export class UserService {
     });
     const savedUser = await newUser.save();
     return this.generateToken(savedUser);
+  }
+
+
+  async getProfileText(){
+    try {
+      let result = await this.ProfileModel.find();
+      return {
+        result
+      }
+    } catch (error) {
+      return error;
+    }
+  }
+
+  async updateName(_id,name){
+    try {
+      let result = await this.ProfileModel.findByIdAndUpdate({_id:_id},{$set:{name:name}})
+      return {
+        result
+      }
+    } catch (error) {
+      return error;
+    }
+  }
+
+  async updateSex(_id,sex){
+    try {
+      await this.ProfileModel.findByIdAndUpdate({_id:_id},{$set:{sex:sex}})
+      return;
+    } catch (error) {
+      return error;
+    }
+  }
+
+  async updateBirthday(_id,birthDate){
+    try {
+      console.log(_id,birthDate);
+      
+      await this.ProfileModel.findByIdAndUpdate(
+        _id,
+        {$set:{birthday:birthDate}},
+        {new:true}
+      );
+      
+      return;
+    } catch (error) {
+      return error;
+    }
   }
 }

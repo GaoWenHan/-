@@ -1,0 +1,34 @@
+.EditBox{
+    width: 100%;
+    height: 100vh;
+}
+
+.EditInputBox{
+    width: 100%;
+    height: 40px;
+    border-bottom:1px solid #ddd;
+    input{
+        width: 100%;
+        height: 100%;
+        border: none;
+        outline: none;
+        text-indent: 10px;
+    }
+}
+
+.SaveBtn{
+    width: 100%;
+    height: 40px;
+    position: absolute;
+    bottom: 10px;
+    button{
+        width: 380px;
+        height: 40px;
+        border: none;
+        background-color: red;
+        border-radius: 15px;
+        margin-left: 15px;
+        color: white;
+        letter-spacing: 10px;
+    }
+}
