@@ -1,0 +1,53 @@
+.SearchPage {
+  width: 100%;
+  height: 100vh;
+}
+
+.SearchInput {
+  width: 100%;
+  height: 40px;
+  input {
+    width: 100%;
+    height: 40px;
+    border: none;
+    outline: none;
+    text-indent: 10px;
+  }
+}
+
+
+.historyListBox{
+    width: 100%;
+    height: auto;
+    padding: 0px 0px 20px 0px;
+}
+
+
+.historyTop{
+    width: 100%;
+    height: 20px;
+    display: flex;
+    justify-content: space-between;
+    p{
+        font-size: 18px;
+    }
+}   
+
+.historyList{
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    margin-top: 15px;
+}
+
+.historyItem{
+    padding: 0px 10px;
+    height: 30px;
+    text-align: center;
+    line-height: 30px;
+    margin-right: 10px;
+    background-color: pink;
+    border-radius: 5px;
+}
