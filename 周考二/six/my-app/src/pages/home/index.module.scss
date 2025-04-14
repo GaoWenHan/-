@@ -1,0 +1,127 @@
+.HomeContainer{
+    width: 100%;
+    height: 100vh;
+    display: flex;
+}
+
+.One{
+    width: 180px;
+    height: 100vh;
+    background-color: rgb(64, 64, 64);
+}
+
+.AddArtilceABox{
+    width: 100%;
+    height: 40px;
+    text-align: center;
+    line-height: 40px;
+    color: rgb(255, 255, 255);
+}
+
+.ArticleAInput{
+    width: 100%;
+    height: auto;
+    input{
+        width: 100%;
+        height: 40px;
+        border: none;
+        outline: none;
+        text-indent: 10px;
+    }
+    p{
+        margin-bottom: 10px;
+    }
+    p:nth-of-type(2){
+        display: flex;
+        button{
+            width:80px;
+            height: 40px;
+            border: none;
+            outline: none;
+            background-color: rgb(255, 255, 255);
+            margin-left: 7px;
+        }
+    }
+}
+
+.ArticleList{
+    width: 100%;
+    height: auto;
+    margin-top: 15px;
+}
+
+.ArticleItem{
+    width: 100%;
+    height: 40px;
+    display: flex;
+    justify-content: space-between;
+    p{
+        padding: 0 20px;
+        height: 40px;
+        line-height: 40px;
+    }
+}
+
+.activeArticleA{
+    width: 100%;
+    height: 40px;
+    display: flex;
+    justify-content: space-between;
+    background-color: rgb(102, 102, 102);
+    p{
+        padding: 0 20px;
+        height: 40px;
+        line-height: 40px;
+    }
+}
+
+
+.Two{
+    width: 220px;
+    height: 100vh;
+    border-right: 1px solid #ddd;
+}
+
+.AddArtilceBBox{
+    width: 100%;
+    height: 40px;
+    text-align: center;
+    line-height: 40px;
+    border-bottom: 1px solid #ddd;
+}
+
+.ArticleBList{
+    width: 100%;
+    height: auto;
+}
+
+.ArticleBItem{
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #ddd;
+    div:nth-of-type(1){
+        padding: 0px 15px;
+        height: 100px;
+        p{
+            padding: 0px 10px;
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+        }
+    }
+    div:nth-of-type(2){
+        padding: 0px 13px;
+        height: 100px;
+        line-height: 100px;
+        text-align: center;
+    }
+}
+
+
+.Three{
+    flex: 1;
+    height: 100vh;
+    background-color: #ddd;
+}
