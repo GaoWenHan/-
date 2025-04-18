@@ -1,0 +1,36 @@
+.SearchPage{
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.Title{
+    width: 100%;
+    height: 40px;
+    text-indent: 10px;
+    line-height: 40px;
+    font-size: 16px;
+    color: gray;
+}
+
+.HistoryList{
+    width: 100%;
+    height: auto;
+    padding-bottom: 40px;
+}
+
+.HistoryItem{
+    width: 100%;
+    height: 50px;
+    text-indent: 10px;
+    line-height: 50px;
+    font-size: 18px;
+    color: gray;
+    border-bottom: 1px solid #ddd;
+}
+
+
+.HistoryItemOne{
+    text-align: center;
+    border: none;
+}

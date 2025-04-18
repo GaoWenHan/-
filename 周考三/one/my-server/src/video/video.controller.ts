@@ -16,6 +16,8 @@ export class VideoController {
   async getList(@Query() query:VideoQueryDto) {
     try {
       const { page,pageSize } = query;
+      console.log(page,pageSize);
+      
       let result = await this.videoService.getVideoList(page,pageSize);
       return new CommonResponseDto(200,'请求成功',result);
     } catch (error) {
