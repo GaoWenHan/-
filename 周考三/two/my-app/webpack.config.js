@@ -54,6 +54,9 @@ module.exports = (env) => {
       new Dotenv({
         path: `.env.${isProduction ? 'production' : 'development'}`,
       }),
+      ...(isProduction ? [new MiniCssExtractPlugin({
+        filename:'[name].[contenthash:8].css',
+      })]: []),
     ],
     devServer: {
       host: 'localhost',
