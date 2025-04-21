@@ -1,0 +1,10 @@
+.floorTop{
+    width: 100%;
+    height: 45px;
+    border-bottom: 1px solid #ddd;
+    padding-left: 15px;
+}
+
+.floorTop Button{
+    height: 45px;
+}

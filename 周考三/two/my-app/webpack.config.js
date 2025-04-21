@@ -26,23 +26,26 @@ module.exports = (env) => {
           },
         },
         {
-            test: /\.(css|less)$/,
-            use:['style-loader','css-loader']
+          test: /\.css$/,
+          exclude: /\.module\.css$/,
+          use: ['style-loader', 'css-loader'],
         },
         {
           test: /\.module\.css$/,
           use: [
             isProduction ? MiniCssExtractPlugin.loader : 'style-loader',
             {
-                loader:"css-loader",
-                options:{
-                    auto:true,
-                    localIdentName:isProduction 
+              loader: 'css-loader',
+              options: {
+                modules: {
+                  auto: true,
+                  localIdentName: isProduction
                     ? '[hash:base64]'
-                    : '[path][name]_[local]'
+                    : '[path][name]_[local]',
                 },
+              },
             },
-            'postcss-loader'
+            'postcss-loader',
           ],
         },
       ],
@@ -51,12 +54,25 @@ module.exports = (env) => {
       new HtmlWebpackPlugin({
         template: './public/index.html',
       }),
+      new MiniCssExtractPlugin({
+        filename: isProduction
+          ? 'css/[name].[contenthash:8].css'
+          : 'css/[name].css',
+        chunkFilename: isProduction
+          ? 'css/[id].[contenthash:8].css'
+          : 'css/[id].css',
+        ignoreOrder: true,
+      }),
       new Dotenv({
         path: `.env.${isProduction ? 'production' : 'development'}`,
       }),
-      ...(isProduction ? [new MiniCssExtractPlugin({
-        filename:'[name].[contenthash:8].css',
-      })]: []),
+      ...(isProduction
+        ? [
+            new MiniCssExtractPlugin({
+              filename: '[name].[contenthash:8].css',
+            }),
+          ]
+        : []),
     ],
     devServer: {
       host: 'localhost',

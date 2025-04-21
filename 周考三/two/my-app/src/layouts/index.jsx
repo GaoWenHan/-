@@ -1,6 +1,7 @@
 import React from 'react';
 import { Layout } from 'antd';
 import { Outlet } from 'react-router-dom';
+import MenuPage from '../components/Menu/index.jsx'
 
 const { Sider, Content } = Layout;
 
@@ -23,7 +24,7 @@ export default function Layouts() {
     <Layout style={layoutStyle}>
       <Layout>
         <Sider width="180px" style={siderStyle}>
-          Sider
+          <MenuPage/>
         </Sider>
         <Content style={contentStyle}>
           <Outlet />

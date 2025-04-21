@@ -3,6 +3,7 @@ import { createHashRouter, Navigate } from 'react-router-dom';
 
 const Layouts = lazy(() => import('../layouts/index.jsx'));
 const Home = lazy(() => import('../pages/home/index.jsx'));
+const FloorPage = lazy(() => import('../pages/floorPage/index.jsx'))
 
 const routes = createHashRouter([
   {
@@ -21,6 +22,10 @@ const routes = createHashRouter([
         path: 'home',
         element: <Home />,
       },
+      {
+        path: 'floorPage',
+        element: <FloorPage />
+      }
     ],
   },
 ]);
