@@ -1,0 +1,55 @@
+.pZveT{
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.Lg0qP{
+    width: 100%;
+    height: auto;
+    background-color: white;
+    border-bottom: 1px solid #ddd;
+}
+
+.HErO9{
+    width: 100%;
+    height: 55px;
+    display: flex;
+    p{
+        padding: 0px 15px;
+        height: 45px;
+        text-align: center;
+        line-height: 45px;
+        color: gray;
+    }
+}
+
+
+.jP9Wd{
+    width: 100%;
+    height: auto;
+}
+
+
+.vnImd{
+    width: 100%;
+    height: 160px;
+    border-bottom: 1px solid #ddd;
+    display: flex;
+    justify-content: space-between;
+}
+
+.q4qut{
+    width: 160px;
+    height: 160px;
+    img{
+        width: 100%;
+        height: 100%;
+    }
+}
+
+
+.gLCkG{
+    width: calc(100% - 160px);
+    height: 160px;
+}
